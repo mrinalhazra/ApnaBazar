@@ -4,6 +4,7 @@ import com.ecomApp.userService.jwt.JwtAuthenticationHelper;
 import com.ecomApp.userService.dto.LoginRequestDto;
 import com.ecomApp.userService.dto.LoginResponseDto;
 import com.ecomApp.userService.security.CustomUserdetailsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthService {
 
     @Autowired
@@ -36,9 +38,14 @@ public class AuthService {
 
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
         this.doAuthenticate(loginRequestDto.getUsername(), loginRequestDto.getPassword());
+        log.info("Authentication of the user credentials is successful.");
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequestDto.getUsername());
+        log.info("User details fetched from username :- {}", userDetails);
+
         String token = jwtAuthenticationHelper.generateToken(userDetails);
+        log.info("token created - {}", token);
+
         LoginResponseDto loginResponseDto = new LoginResponseDto();
         loginResponseDto.setJwtToken(token);
 //        loginResponseDto.setEmail(loginRequestDto.getUserNameOrEmail());

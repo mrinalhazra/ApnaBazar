@@ -5,6 +5,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.app.apnabazar.service.CustomUserDetailsService;
+import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,10 +32,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     JwtAuthHelper authenticationHelper;
 
-    private final UserDetailsService userDetailsService;
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
 
-    public JwtAuthenticationFilter(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public JwtAuthenticationFilter(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Override
@@ -49,7 +52,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             username = authenticationHelper.getUsernameFromToken(token);
             log.info("username found from token - {}", username);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            log.info("user details obtained by the token for the user :- {}", userDetails);
 
 //            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
             if(!authenticationHelper.isTokenExpired(token) && SecurityContextHolder.getContext().getAuthentication() == null){
