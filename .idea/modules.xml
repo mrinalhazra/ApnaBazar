@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/E-commerce Application.iml" filepath="$PROJECT_DIR$/.idea/E-commerce Application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apnabazar/apnabazar.iml" filepath="$PROJECT_DIR$/apnabazar/apnabazar.iml" />
     </modules>
   </component>
 </project>
