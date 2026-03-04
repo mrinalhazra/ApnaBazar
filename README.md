@@ -12,7 +12,7 @@ ApnaBazar is a full-stack eCommerce application designed to provide users with a
 - **Admin Dashboard**: Manage products, view sales analytics, and handle user accounts.
 
 ## Technologies Used
-- **Frontend**: React.js for building user interfaces and managing application state.
+- **Frontend**: Developing frontend using React.js for building user interfaces and managing application state.
 - **Backend**: Node.js with Express.js to create a RESTful API.
 - **Database**: MongoDB to store user data and product information.
 - **Authentication**: JSON Web Tokens (JWT) for secure user authentication.
